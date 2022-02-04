@@ -1,0 +1,34 @@
+.card {
+  background-color: white;
+  border-radius: $cornerRadius;
+  box-shadow: $boxShadow;
+  padding: $padding;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  color: $grey;
+  letter-spacing: 0.4px;
+}
+.card_title {
+  font-weight: 500;
+  color: black;
+  font-size: 22px;
+  margin-bottom: 15px;
+  letter-spacing: 0.4px;
+  display: flex;
+  align-items: center;
+}
+
+.card__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  width: 38px;
+  font-size: 20px;
+  border-radius: 50%;
+  background-color: lighten($green, 58%);
+  color: $green;
+  margin-right: 10px;
+  text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
+}

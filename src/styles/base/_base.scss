@@ -1,0 +1,103 @@
+* {
+  font-family: 'Roboto', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $background;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.mb-25 {
+  margin-bottom: 25px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 2px solid $ligth-grey;
+  margin: 1em 0;
+  padding: 0;
+}
+.link {
+  margin: 0px 5px;
+  text-decoration: none;
+  color: $primary;
+  display: inline;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+/*==================================================================
+[ Restyle Checkbox ]*/
+
+.input-checkbox100 {
+  display: none;
+}
+
+.label-checkbox100 {
+  cursor: pointer;
+  font-size: 16px;
+  color: $grey;
+  line-height: 1.2;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 10px;
+}
+
+.label-checkbox100::before {
+  content: '\f00c';
+  font-family: 'Font Awesome 5 free';
+  font-weight: 900;
+  line-height: 16px;
+  text-align: center;
+  font-size: 11px;
+  color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #fff;
+  border: 2px solid $primary;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 0.3;
+}
+
+.input-checkbox100:checked + .label-checkbox100::before {
+  color: white;
+  background-color: $primary;
+  cursor: pointer;
+}
+
+.fa-edit::before {
+  margin-left: 6px;
+  margin-top: -2px;
+  // margin: 0;
+  // padding: 0;
+  box-sizing: border-box;
+}
