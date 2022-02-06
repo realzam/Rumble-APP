@@ -2,19 +2,122 @@
   width: 950px;
   display: grid;
   grid-template-columns: 3fr 7fr;
-  gap: 25px;
+  column-gap: 25px;
   padding: 5px;
 }
 
 .hangman_main {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 35px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  justify-content: space-evenly;
+  max-height: 570px;
+}
+
+.bc {
+  display: flex;
+  flex-direction: row;
+  column-gap: 15px;
+}
+
+.c {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+  flex: 1 0 0;
+}
+
+.leaderboard {
+  max-height: 570px;
+}
+
+.leaderboard_title {
+  font-weight: 500;
+  color: darken($color: $primary, $amount: 15%);
+  font-size: 22px;
+  letter-spacing: 0.4px;
+  & > i {
+    margin-right: 5px;
+  }
+}
+
+.leader_players_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 15px;
+    background: $ligth-grey; /* color of the tracking area */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey; /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+}
+
+.leader_player_container {
+  border-radius: 10px;
+  box-shadow: $boxShadow;
+  color: darken($color: $primary, $amount: 15%);
+  display: flex;
+  padding: 15px 10px;
+  column-gap: 5px;
+
+  & > img {
+    flex: 0 0 0;
+  }
+
+  & > .leader_player_info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+
+    & > :nth-child(1) {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    & > :nth-child(2) {
+      font-size: 16px;
+      color: $grey;
+      & > i {
+        font-size: 17px;
+      }
+    }
+  }
+
+  & > .leader_player_rank {
+    flex: 0 0 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    & > :nth-child(1) {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+.leader_player_container_select {
+  background-color: $primary;
+}
+
+.avatar {
+  vertical-align: middle;
+  height: 50px;
+  border-radius: 50%;
 }
 
 .secret_text_container {
-  grid-column: 1/3;
-  flex: 0 0 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -33,8 +136,8 @@
   font-family: $hangmanFont;
   font-weight: 400;
   font-size: 40px; //40 px    25px
-  border-bottom: 4px solid black;
-  line-height: 25px; //23px    15px
+  border-bottom: 4px solid darken($color: $primary, $amount: 15%);
+  line-height: 28px; //23px    15px
   min-width: 25px;
   text-align: center;
 }
@@ -45,19 +148,28 @@
 }
 
 .hangman_keyboard {
+  height: 300px;
+  flex: 1 0 0;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
-  gap: 5px;
+  gap: 8px;
 }
 
 .hangman_key {
+  color: black;
   user-select: none;
-  border: 3px solid black;
+  border: 3px solid darken($color: $primary, $amount: 15%);
   font-family: $hangmanFont;
   font-weight: 400;
   font-size: 30px;
   text-align: center;
   border-radius: $cornerRadius;
-  // line-height: 35px;
+  line-height: 50px;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    background-color: darken($color: $primary, $amount: 15%);
+    color: white;
+  }
 }
