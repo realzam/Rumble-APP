@@ -1,9 +1,10 @@
 import { Document } from 'mongoose';
 
-export interface UsuarioDocument extends Document {
-  email: string;
-  nombre: string;
-  password: string;
+export interface PlayerDocument {
+  nick: string;
+  role: string;
+  sala: string;
+  points: number;
   online: boolean;
   uid: string;
 }

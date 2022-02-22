@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid';
+
 interface Props {
   word: string;
 }
@@ -12,12 +14,21 @@ function SegmentText({ segment }: Props2) {
       {segment
         .trim()
         .split('')
-        .map((l, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <div className="secret_letter" key={`${l}_${i}`}>
-            {l}
-          </div>
-        ))}
+        .map((l) => {
+          if (l === '$') {
+            return (
+              <div
+                className="secret_letter secret_letter_unknown"
+                key={nanoid(5)}
+              />
+            );
+          }
+          return (
+            <div className="secret_letter" key={nanoid(5)}>
+              {l}
+            </div>
+          );
+        })}
     </div>
   );
 }

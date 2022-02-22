@@ -8,7 +8,6 @@ const useSocket = (serverPath: string) => {
   const conectarSocket = useCallback(
     (namespace: string) => {
       const token = localStorage.getItem('token');
-
       const socketTemp = io(serverPath + namespace, {
         transports: ['websocket'],
         autoConnect: true,
@@ -34,7 +33,6 @@ const useSocket = (serverPath: string) => {
 
   useEffect(() => {
     socket?.on('disconnect', () => {
-      console.log('socket desconectado', socket);
       setOnline(false);
     });
   }, [socket]);

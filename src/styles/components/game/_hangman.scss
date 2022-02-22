@@ -1,4 +1,5 @@
 .hangman_grid {
+  z-index: 2;
   width: 950px;
   display: grid;
   grid-template-columns: 3fr 7fr;
@@ -11,7 +12,69 @@
   flex-direction: column;
   row-gap: 15px;
   justify-content: space-evenly;
-  max-height: 570px;
+  height: 100%;
+  border: 3px solid $primary;
+}
+
+.hangman_challenge_by {
+  position: absolute;
+  top: -38px;
+  left: 1px;
+  background-color: white;
+  border: 3px solid $green;
+  border-radius: $cornerRadius;
+  box-shadow: $boxShadow;
+  padding: 10px;
+  z-index: -2;
+}
+
+.hangman_out {
+  font-family: "Roboto";
+  font-size: 16px;
+  position: absolute;
+  top: -38px;
+  left: 1px;
+  background-color: white;
+  border: 3px solid red;
+  border-radius: $cornerRadius;
+  box-shadow: $boxShadow;
+  padding: 10px;
+  z-index: -1;
+  font-weight: bold;
+  & > i {
+    color: red;
+  }
+  & > * {
+    cursor: pointer;
+  }
+  cursor: pointer;
+}
+
+.hangman_turn_letter {
+  position: absolute;
+  top: -38px;
+  right: 1px;
+  background-color: white;
+  border: 3px solid $primary;
+  border-radius: $cornerRadius;
+  box-shadow: $boxShadow;
+  padding: 10px;
+  z-index: -2;
+}
+
+.hangman_life {
+  position: absolute;
+  bottom: -38px;
+  right: 1px;
+  background-color: white;
+  border: 3px solid red;
+  border-radius: $cornerRadius;
+  box-shadow: $boxShadow;
+  padding: 10px;
+  z-index: -2;
+  & > i {
+    color: red;
+  }
 }
 
 .bc {
@@ -29,6 +92,7 @@
 
 .leaderboard {
   max-height: 570px;
+  z-index: 3;
 }
 
 .leaderboard_title {
@@ -39,6 +103,7 @@
   & > i {
     margin-right: 5px;
   }
+  margin-bottom: 10px;
 }
 
 .leader_players_container {
@@ -100,6 +165,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     & > :nth-child(1) {
       font-size: 16px;
       font-weight: bold;
@@ -107,8 +173,8 @@
   }
 }
 
-.leader_player_container_select {
-  background-color: $primary;
+.leader_player_i {
+  border: 3px solid $primary;
 }
 
 .avatar {
@@ -142,6 +208,11 @@
   text-align: center;
 }
 
+.secret_letter_unknown {
+  width: 25px;
+  height: 32px;
+}
+
 .secret_letter_space {
   width: 35px;
   line-height: 0px;
@@ -168,8 +239,13 @@
   line-height: 50px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
-  &:hover {
+  &:hover:not([disabled]) {
     background-color: darken($color: $primary, $amount: 15%);
     color: white;
+  }
+  &:disabled {
+    cursor: default;
+    border-color: $ligth-grey;
+    color: $ligth-grey;
   }
 }

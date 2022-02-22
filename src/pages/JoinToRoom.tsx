@@ -1,7 +1,10 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../context/AuthContext';
 
 function JoinToRoom() {
+  const { joinRoom } = useContext(AuthContext);
   const [form, setForm] = useState({
     rom: '',
     nick: '',
@@ -24,12 +27,16 @@ function JoinToRoom() {
     setForm({ ...form, rememberme: !form.rememberme });
   };
 
-  const onSumbit = (e: SyntheticEvent) => {
+  const onSumbit = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (form.rememberme) {
       localStorage.setItem('nick', form.nick);
     } else {
       localStorage.removeItem('nick');
+    }
+    const resp = await joinRoom(form.rom, form.nick);
+    if (!resp.ok) {
+      Swal.fire('Error', resp.error, 'error');
     }
   };
 

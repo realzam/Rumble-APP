@@ -13,6 +13,7 @@
   "less.validate": false,
   "scss.validate": false,
   "stylelint.enable": true,
+  "peacock.remoteColor": "#dd0531",
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#fa1b49",
     "activityBar.activeBorder": "#155e02",
@@ -32,5 +33,5 @@
     "titleBar.inactiveBackground": "#dd053199",
     "titleBar.inactiveForeground": "#e7e7e799"
   },
-  "peacock.remoteColor": "#dd0531"
+  "peacock.color": "#dd0531"
 }

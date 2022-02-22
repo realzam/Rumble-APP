@@ -1,9 +1,12 @@
-import { SyntheticEvent, useState, useEffect } from 'react';
+import { SyntheticEvent, useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import Selector from '../components/Selector';
+import { AuthContext } from '../context/AuthContext';
 
 function CreateRoom() {
   const games = ['Ahorcado', 'Uno'];
+  const { createRoom } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     juego: 0,
@@ -31,13 +34,18 @@ function CreateRoom() {
     setForm({ ...form, rememberme: !form.rememberme });
   };
 
-  const onSumbit = (e: SyntheticEvent) => {
+  const onSumbit = async (e: SyntheticEvent) => {
     e.preventDefault();
     console.log(form);
     if (form.rememberme) {
       localStorage.setItem('nick', form.nick);
     } else {
       localStorage.removeItem('nick');
+    }
+
+    const resp = await createRoom(form.nick, 0);
+    if (!resp.ok) {
+      Swal.fire('Error', resp.error, 'error');
     }
   };
 
