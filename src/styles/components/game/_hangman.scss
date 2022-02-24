@@ -13,7 +13,6 @@
   row-gap: 15px;
   justify-content: space-evenly;
   height: 100%;
-  border: 3px solid $primary;
 }
 
 .hangman_challenge_by {
@@ -26,6 +25,10 @@
   box-shadow: $boxShadow;
   padding: 10px;
   z-index: -2;
+  & > i {
+    color: $green;
+    margin-right: 5px;
+  }
 }
 
 .hangman_out {
@@ -60,6 +63,10 @@
   box-shadow: $boxShadow;
   padding: 10px;
   z-index: -2;
+  & > i {
+    color: $primary-dark;
+    margin-right: 5px;
+  }
 }
 
 .hangman_life {
@@ -97,7 +104,7 @@
 
 .leaderboard_title {
   font-weight: 500;
-  color: darken($color: $primary, $amount: 15%);
+  color: $primary-dark;
   font-size: 22px;
   letter-spacing: 0.4px;
   & > i {
@@ -130,7 +137,7 @@
 .leader_player_container {
   border-radius: 10px;
   box-shadow: $boxShadow;
-  color: darken($color: $primary, $amount: 15%);
+  color: $primary-dark;
   display: flex;
   padding: 15px 10px;
   column-gap: 5px;
@@ -173,10 +180,6 @@
   }
 }
 
-.leader_player_i {
-  border: 3px solid $primary;
-}
-
 .avatar {
   vertical-align: middle;
   height: 50px;
@@ -189,6 +192,7 @@
   flex-wrap: wrap;
   row-gap: 20px;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .hangman_segment_container {
@@ -202,7 +206,7 @@
   font-family: $hangmanFont;
   font-weight: 400;
   font-size: 40px; //40 px    25px
-  border-bottom: 4px solid darken($color: $primary, $amount: 15%);
+  border-bottom: 4px solid $primary-dark;
   line-height: 28px; //23px    15px
   min-width: 25px;
   text-align: center;
@@ -218,6 +222,12 @@
   line-height: 0px;
 }
 
+.hangman_key_container {
+  width: 41px;
+  height: 56px;
+  position: relative;
+}
+
 .hangman_keyboard {
   height: 300px;
   flex: 1 0 0;
@@ -225,12 +235,26 @@
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: repeat(5, 1fr);
   gap: 8px;
+  margin-bottom: 20px;
+}
+
+.hangman_key_decorator {
+  color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
 }
 
 .hangman_key {
   color: black;
   user-select: none;
-  border: 3px solid darken($color: $primary, $amount: 15%);
+  border: 3px solid $primary-dark;
   font-family: $hangmanFont;
   font-weight: 400;
   font-size: 30px;
@@ -239,13 +263,19 @@
   line-height: 50px;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
+
   &:hover:not([disabled]) {
-    background-color: darken($color: $primary, $amount: 15%);
+    background-color: $primary-dark;
     color: white;
   }
+
   &:disabled {
     cursor: default;
     border-color: $ligth-grey;
     color: $ligth-grey;
   }
+}
+
+.decorator_key {
+  z-index: 4;
 }

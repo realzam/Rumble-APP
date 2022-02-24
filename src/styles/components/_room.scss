@@ -72,7 +72,7 @@
   height: 30px;
   width: 13px;
   border-radius: 3px;
-  background-color: darken($color: $primary, $amount: 15%);
+  background-color: $primary-dark;
   margin-right: 10px;
 }
 
@@ -87,7 +87,7 @@
   box-shadow: $boxShadow;
   padding: 5px 15px;
   border: 2px solid $primary;
-  color: darken($color: $primary, $amount: 15%);
+  color: $primary-dark;
   font-weight: 500;
 }
 

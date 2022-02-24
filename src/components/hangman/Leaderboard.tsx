@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import classNames from 'classnames';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
 
@@ -25,11 +26,9 @@ function Leaderboard() {
         <div className="leader_players_container">
           {players.map((player, rank) => (
             <div
-              className={
-                auth.nick === player.nick
-                  ? 'leader_player_container leader_player_i'
-                  : 'leader_player_container'
-              }
+              className={classNames('leader_player_container', {
+                border_primary: auth.nick === player.nick,
+              })}
               key={player.uid}
             >
               <img src="/images/avatar.webp" alt="Avatar" className="avatar" />

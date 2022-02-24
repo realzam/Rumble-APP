@@ -3,30 +3,31 @@ import Lottie, { AnimationItem } from 'lottie-web';
 import HangmanContext from '../../context/games/HangamanContext';
 
 function HangmanAnimation() {
-  const { segment } = useContext(HangmanContext);
+  const {
+    gameData: { lifes },
+  } = useContext(HangmanContext);
   const [anime, setAnime] = useState<AnimationItem>();
   const isStart = useRef(true);
 
   const getSegments = (s: number): [number, number] => {
-    return [24 * (s - 1), 24 * s - 1];
+    const b = 24 * s;
+    return [144 - b, 167 - b];
   };
 
   useEffect(() => {
     if (anime) {
       if (isStart.current) {
-        console.log('hola animation', segment);
-        if (segment === 7) {
-          anime.goToAndStop(24 * segment - 1, true);
+        if (lifes === 0) {
+          anime?.goToAndStop(167, true);
         } else {
-          anime.goToAndStop(24 * segment, true);
+          anime?.goToAndStop(168 - 24 * lifes, true);
         }
         isStart.current = false;
       } else {
-        console.log('play segment', segment);
-        anime.playSegments(getSegments(segment), true);
+        anime?.playSegments(getSegments(lifes), true);
       }
     }
-  }, [anime, segment]);
+  }, [anime, lifes]);
 
   useEffect(() => {
     const temp = Lottie.loadAnimation({

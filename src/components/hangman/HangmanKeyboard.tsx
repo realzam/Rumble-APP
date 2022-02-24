@@ -1,10 +1,23 @@
 import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
+import SocketContext from '../../context/SocketContext';
 
 function HangmanKeyboard() {
   const letras: number[] = Array.from({ length: 26 }, (_, i) => i);
-  const { gameData, discoverLetter, isOver } = useContext(HangmanContext);
-  const { lettersDisable } = gameData;
+  const { socket } = useContext(SocketContext);
+  const {
+    auth: { nick },
+  } = useContext(AuthContext);
+  const {
+    gameData: { lettersDisable, playerLetter },
+    isOver,
+  } = useContext(HangmanContext);
+
+  const discoverLetter = (letter: string) => {
+    socket?.emit('discover-letter', letter);
+  };
+
   return (
     <div className="hangman_keyboard">
       {letras.map((i) => {
@@ -18,7 +31,9 @@ function HangmanKeyboard() {
             onClick={() => {
               discoverLetter(char);
             }}
-            disabled={lettersDisable.includes(code) || isOver}
+            disabled={
+              lettersDisable.includes(code) || isOver || nick !== playerLetter
+            }
           >
             {char}
           </button>

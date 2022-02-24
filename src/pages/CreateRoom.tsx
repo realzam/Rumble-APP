@@ -36,7 +36,7 @@ function CreateRoom() {
 
   const onSumbit = async (e: SyntheticEvent) => {
     e.preventDefault();
-    console.log(form);
+    // console.log(form);
     if (form.rememberme) {
       localStorage.setItem('nick', form.nick);
     } else {

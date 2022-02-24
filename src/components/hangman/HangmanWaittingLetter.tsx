@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import classNames from 'classnames';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
 import HangmanAnimation from './HangmanAnimation';
@@ -9,9 +10,11 @@ function HangmanWaittingLetter() {
   const { auth } = useContext(AuthContext);
   const { gameData } = useContext(HangmanContext);
   const { letters, lifes } = gameData;
+
   return (
     <div style={{ position: 'relative' }}>
       <div className="hangman_challenge_by">
+        <i className="fa-solid fa-feather-pointed" />
         Palabra de: <strong>{gameData.playerWord}</strong>
       </div>
       <div className="hangman_life">
@@ -21,12 +24,16 @@ function HangmanWaittingLetter() {
         </label>
       </div>
       <div className="hangman_turn_letter">
-        <i className="fas fa-heart" />{' '}
+        <i className="fa-solid fa-dice" />
         <label>
           Turno de : <strong>{gameData.playerLetter}</strong>
         </label>
       </div>
-      <div className="room__grid_cell hangman_main">
+      <div
+        className={classNames('room__grid_cell hangman_main', {
+          'border_primary blink': auth.nick === gameData.playerLetter,
+        })}
+      >
         <SecretText word={letters.join('')} />
         <div className="bc">
           {auth.nick !== gameData.playerWord && <HangmanKeyboard />}

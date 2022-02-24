@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useMemo } from 'react';
 import SocketContext from '../SocketContext';
 import HangmanContext, {
   HangmanValues,
@@ -11,6 +11,28 @@ interface Props {
 }
 
 function HangmanProvider({ children }: Props) {
+  const soundErrorLetter = useMemo(
+    () => new Audio('/sounds/wrong-letter.mp3'),
+    [],
+  );
+
+  const soundCorrectLetter = useMemo(
+    () => new Audio('/sounds/correct-letter.mp3'),
+    [],
+  );
+
+  const soundFinishGame = useMemo(
+    () => new Audio('/sounds/finish-game.mp3'),
+    [],
+  );
+
+  const soundGameOver = useMemo(() => new Audio('/sounds/game-over.mp3'), []);
+
+  const soundWinningGame = useMemo(
+    () => new Audio('/sounds/winnig-game.mp3'),
+    [],
+  );
+
   const [state, setState] = useState<HangmanValues>({
     room: {
       players: [],
@@ -46,54 +68,56 @@ function HangmanProvider({ children }: Props) {
 
   useEffect(() => {
     socket?.on('status_hangman', (info: HangmanData) => {
-      // console.log('status_hangman', info);
-      setState((s) => ({ ...s, gameData: info }));
+      const isOver = info.lifes === 0;
+      console.log('isOver', isOver);
+      setState((s) => ({ ...s, gameData: info, isOver }));
     });
   }, [socket, state.room.players]);
-  /*
-  useEffect(() => {
-    socket?.on('current-status', (info: SocketState) => {
-      console.log('current-status', info);
-      setState((s) => ({ ...s, ...info }));
-    });
-  }, [socket]);
 
   useEffect(() => {
-    socket?.on('player_list', (players: PlayerDocument[]) => {
-      setState((s) => {
-        return { ...s, players };
-      });
+    socket?.on('sound_error_letter', () => {
+      soundErrorLetter.play();
     });
-  }, [socket]);
+  }, [socket, soundErrorLetter]);
 
   useEffect(() => {
-    socket?.on('game-over', (info: SocketState) => {
-      setState({ ...info, isOver: true, segment: 7 });
+    socket?.on('sound_correct_letter', () => {
+      soundCorrectLetter.play();
     });
-  }, [socket]);
+  }, [socket, soundCorrectLetter]);
 
   useEffect(() => {
-    socket?.on('status-room', (status: string) => {
-      setState((s) => ({ ...s, estado: status }));
+    socket?.on('sound_finis_game', () => {
+      soundFinishGame.play();
     });
-  }, [socket]);
+  }, [socket, soundFinishGame]);
 
   useEffect(() => {
-    socket?.on('error-discover-letter', (segment: number) => {
-      setState((s) => ({ ...s, segment }));
+    socket?.on('sound_game_over', () => {
+      soundGameOver.play();
     });
-  }, [socket]);
-*/
-  const startGame = () => {
-    socket?.emit('start_game');
-  };
+  }, [socket, soundGameOver]);
 
-  const discoverLetter = (letter: string) => {
-    socket?.emit('discover-letter', letter);
-  };
+  useEffect(() => {
+    socket?.on('sound_error_letter', () => {
+      soundErrorLetter.play();
+    });
+  }, [socket, soundErrorLetter]);
+
+  useEffect(() => {
+    socket?.on('sound_winning_game', () => {
+      soundWinningGame.play();
+    });
+  }, [socket, soundWinningGame]);
+
+  useEffect(() => {
+    socket?.on('sound_error_letter', () => {
+      soundErrorLetter.play();
+    });
+  }, [socket, soundErrorLetter]);
 
   return (
-    <HangmanContext.Provider value={{ ...state, startGame, discoverLetter }}>
+    <HangmanContext.Provider value={{ ...state }}>
       {children}
     </HangmanContext.Provider>
   );

@@ -64,6 +64,7 @@ function JoinToRoom() {
             name="rom"
             onChange={onChange}
             value={form.rom}
+            autoComplete="false"
           />
           <label className="room__input-label obligatory">Nick</label>
           <input

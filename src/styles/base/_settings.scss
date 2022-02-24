@@ -4,7 +4,10 @@ $grey: #585757;
 $ligth-grey: #e3e3e3;
 $green: #00ba34;
 $primary: #0085ff;
-
+$primary-dark: darken(
+  $color: $primary,
+  $amount: 15%,
+);
 $cornerRadius: 8px;
 $padding: 20px;
 

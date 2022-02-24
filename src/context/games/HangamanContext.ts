@@ -25,12 +25,7 @@ export interface HangmanValues {
   isLoading: boolean;
 }
 
-export interface HangmanFunctions {
-  startGame(): void;
-  discoverLetter(letter: string): void;
-}
-
-export type HangmanGame = HangmanValues & HangmanFunctions;
+export type HangmanGame = HangmanValues;
 
 const HangmanContext = createContext<HangmanGame>({} as HangmanGame);
 

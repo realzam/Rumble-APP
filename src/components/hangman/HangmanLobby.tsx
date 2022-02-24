@@ -2,11 +2,17 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
+import SocketContext from '../../context/SocketContext';
 
 function HangmanLobby() {
+  const { socket } = useContext(SocketContext);
   const { auth, outRoom } = useContext(AuthContext);
-  const { room, startGame } = useContext(HangmanContext);
+  const { room } = useContext(HangmanContext);
   const { players } = room;
+
+  const startGame = () => {
+    socket?.emit('start_game');
+  };
 
   return (
     <div className="room__main col">
