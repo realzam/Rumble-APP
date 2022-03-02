@@ -10,8 +10,7 @@ function HangmanKeyboard() {
     auth: { nick },
   } = useContext(AuthContext);
   const {
-    gameData: { lettersDisable, playerLetter },
-    isOver,
+    gameData: { lettersDisable, playerLetter, isFinish },
   } = useContext(HangmanContext);
 
   const discoverLetter = (letter: string) => {
@@ -32,7 +31,7 @@ function HangmanKeyboard() {
               discoverLetter(char);
             }}
             disabled={
-              lettersDisable.includes(code) || isOver || nick !== playerLetter
+              lettersDisable.includes(code) || isFinish || nick !== playerLetter
             }
           >
             {char}

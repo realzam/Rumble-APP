@@ -1,4 +1,10 @@
-import { SyntheticEvent, useContext, useEffect, useState } from 'react';
+import {
+  SyntheticEvent,
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
@@ -10,25 +16,25 @@ function HangmanWaittingWord() {
   const { gameData } = useContext(HangmanContext);
   const { auth } = useContext(AuthContext);
   const [word, setWord] = useState('');
+  const soundPopUp = useMemo(() => new Audio('/sounds/pop-up.mp3'), []);
 
   useEffect(() => {
     socket?.on('input_word', () => {
-      console.log('input_word');
+      soundPopUp.play();
       Swal.fire({
         title: 'Es tu turno, escribe la palabra para jugar',
         width: 600,
         padding: '3em',
         color: '#0085ff',
         background: '#fff',
-        backdrop: `
-          rgba(0,93,179,0.4)
-          url("/images/nyan-cat.gif")
-          left top
-          no-repeat
-        `,
+        backdrop: 'rgba(0,93,179,0.4)',
       });
     });
-  }, [socket]);
+
+    return () => {
+      socket?.removeAllListeners('input_word');
+    };
+  }, [socket, soundPopUp]);
 
   const onClick = () => {
     const w = word
@@ -37,7 +43,6 @@ function HangmanWaittingWord() {
       .toUpperCase()
       .trim();
     if (w.length >= 3) {
-      console.log('emitting start_word');
       socket?.emit('start_word', w);
     }
   };

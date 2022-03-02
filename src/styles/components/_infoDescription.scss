@@ -1,0 +1,17 @@
+.infoDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  letter-spacing: 0.6px;
+}
+
+.infoDescriptionTitle {
+  color: #01396c;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.infoDescriptionDes {
+  color: #a8a8a8;
+  font-size: 14px;
+}

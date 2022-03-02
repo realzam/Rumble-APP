@@ -1,9 +1,12 @@
-@import './base/settings';
-@import './base/base';
+@import "./base/settings";
+@import "./base/base";
 
-@import './components/room';
-@import './components/buttons';
-@import './components/card';
-@import './components/selector';
+@import "./components/room";
+@import "./components/buttons";
+@import "./components/card";
+@import "./components/dropdown";
+@import "./components/selector";
+@import "./components/infoBolder";
+@import "./components/infoDescription";
 
-@import './components/game/hangman'
+@import "./components/game/hangman";

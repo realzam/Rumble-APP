@@ -32,7 +32,6 @@
 }
 
 .hangman_out {
-  font-family: "Roboto";
   font-size: 16px;
   position: absolute;
   top: -38px;
@@ -81,6 +80,25 @@
   z-index: -2;
   & > i {
     color: red;
+  }
+}
+
+.hangman_config {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.hangman-adivinar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: -30px;
+
+  & > input {
+    flex-basis: 80%;
+    margin-right: 10px;
   }
 }
 
@@ -279,3 +297,13 @@
 .decorator_key {
   z-index: 4;
 }
+
+// .animate__animated.animate__fadeInUp {
+//   --animate-duration: 2s;
+//   color: $green;
+// }
+
+// .animate__animated.animate__fadeInDown {
+//   --animate-duration: 2s;
+//   color: red;
+// }

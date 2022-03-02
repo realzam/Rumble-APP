@@ -1,12 +1,29 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
+import SocketContext from '../../context/SocketContext';
+
+interface UpdateInfo {
+  player: string;
+  puntos: number;
+}
 
 function Leaderboard() {
   const { auth, outRoom } = useContext(AuthContext);
   const { room } = useContext(HangmanContext);
   const { players } = room;
+  const { socket } = useContext(SocketContext);
+  const [animate, setAnimate] = useState('');
+  const [points, setPuntos] = useState(false);
+
+  useEffect(() => {
+    socket?.on('update_points', ({ player, puntos }: UpdateInfo) => {
+      setAnimate(player);
+      setPuntos(puntos >= 0);
+    });
+  }, [socket]);
+
   return (
     <div style={{ position: 'relative' }}>
       <button
@@ -42,10 +59,21 @@ function Leaderboard() {
                     offline
                   </div>
                 </div>
-                <label>
+                <div>
                   <i className="fas fa-star" />
-                  {` ${player.points} puntos`}
-                </label>
+                  <label
+                    className={
+                      animate !== player.nick
+                        ? ''
+                        : classNames('animate__animated', {
+                            animate__fadeInDown: !points,
+                            animate__fadeInUp: points,
+                          })
+                    }
+                  >
+                    {` ${player.points} puntos`}
+                  </label>
+                </div>
               </div>
               <div className="leader_player_rank">
                 <label>#{rank + 1}</label>

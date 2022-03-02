@@ -1,7 +1,7 @@
 import { SyntheticEvent, useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import Selector from '../components/Selector';
+import Dropdown from '../components/Dropdown';
 import { AuthContext } from '../context/AuthContext';
 
 function CreateRoom() {
@@ -62,7 +62,7 @@ function CreateRoom() {
         </span>
         <form className="col" onSubmit={onSumbit}>
           <label className="room__input-label">Juego</label>
-          <Selector
+          <Dropdown
             id="game"
             options={games}
             option={form.juego}

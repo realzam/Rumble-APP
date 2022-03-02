@@ -33,6 +33,8 @@ function HangmanProvider({ children }: Props) {
     [],
   );
 
+  const soundPopUp = useMemo(() => new Audio('/sounds/pop-up.mp3'), []);
+
   const [state, setState] = useState<HangmanValues>({
     room: {
       players: [],
@@ -45,8 +47,8 @@ function HangmanProvider({ children }: Props) {
       status: 'waitting word',
       playerWord: '',
       playerLetter: '',
+      isFinish: false,
     },
-    isOver: false,
     segment: 0,
     isLoading: true,
   });
@@ -54,35 +56,45 @@ function HangmanProvider({ children }: Props) {
 
   useEffect(() => {
     socket?.on('init', () => {
-      // console.log('init');
       setState((s) => ({ ...s, isLoading: false }));
     });
   }, [socket]);
 
   useEffect(() => {
     socket?.on('status_room', (info: HangmanRoom) => {
-      // console.log('current-status', info);
       setState((s) => ({ ...s, room: info }));
     });
+    return () => {
+      socket?.removeAllListeners('status_room');
+    };
   }, [socket]);
 
   useEffect(() => {
     socket?.on('status_hangman', (info: HangmanData) => {
-      const isOver = info.lifes === 0;
-      console.log('isOver', isOver);
-      setState((s) => ({ ...s, gameData: info, isOver }));
+      setState((s) => ({ ...s, gameData: info }));
     });
+    return () => {
+      socket?.removeAllListeners('status_hangman');
+    };
   }, [socket, state.room.players]);
 
   useEffect(() => {
     socket?.on('sound_error_letter', () => {
-      soundErrorLetter.play();
+      if (soundErrorLetter.paused) {
+        soundErrorLetter.play();
+      } else {
+        soundErrorLetter.currentTime = 0;
+      }
     });
   }, [socket, soundErrorLetter]);
 
   useEffect(() => {
     socket?.on('sound_correct_letter', () => {
-      soundCorrectLetter.play();
+      if (soundCorrectLetter.paused) {
+        soundCorrectLetter.play();
+      } else {
+        soundCorrectLetter.currentTime = 0;
+      }
     });
   }, [socket, soundCorrectLetter]);
 
@@ -99,22 +111,16 @@ function HangmanProvider({ children }: Props) {
   }, [socket, soundGameOver]);
 
   useEffect(() => {
-    socket?.on('sound_error_letter', () => {
-      soundErrorLetter.play();
-    });
-  }, [socket, soundErrorLetter]);
-
-  useEffect(() => {
     socket?.on('sound_winning_game', () => {
       soundWinningGame.play();
     });
   }, [socket, soundWinningGame]);
 
   useEffect(() => {
-    socket?.on('sound_error_letter', () => {
-      soundErrorLetter.play();
+    socket?.on('sound_pop-up', () => {
+      soundPopUp.play();
     });
-  }, [socket, soundErrorLetter]);
+  }, [socket, soundPopUp]);
 
   return (
     <HangmanContext.Provider value={{ ...state }}>

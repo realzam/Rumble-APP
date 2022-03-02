@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import HangmanContext from '../../context/games/HangamanContext';
 import SocketContext from '../../context/SocketContext';
+import InfoBolder from '../InfoBolder';
 
 function HangmanLobby() {
   const { socket } = useContext(SocketContext);
@@ -37,15 +38,17 @@ function HangmanLobby() {
               <div className="a">
                 <img src="/images/hangman.webp" alt="hangaman" />
               </div>
-              <div className="col">
-                <label>
-                  ID de Sala:<h1>{auth.sala}</h1>
-                </label>
+              <div className="hangman_config">
+                <InfoBolder title="ID Sala" value={auth.sala as string} />
+
                 {auth.role === 'Host' && (
                   <button
                     className="btn btn-primary"
                     type="button"
                     onClick={startGame}
+                    disabled={
+                      players.filter((p) => p.online === true).length < 2
+                    }
                   >
                     Empezar juego
                   </button>

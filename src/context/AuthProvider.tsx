@@ -74,7 +74,6 @@ function AuthProvider({ children }: Props) {
         ...decoded,
       });
     } else {
-      console.log('request error', resp);
       error = resp.error;
     }
     return { ok: resp.ok, error };
@@ -107,7 +106,6 @@ function AuthProvider({ children }: Props) {
         ...decoded,
       });
     } else {
-      console.log('request error', resp);
       error = resp.error;
     }
     return { ok: resp.ok, error };

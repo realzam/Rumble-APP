@@ -20,7 +20,6 @@ function SocketProvider({ children }: Props) {
 
   useEffect(() => {
     if (!auth.logged) {
-      console.log('Desconectar socket');
       desconectarSocket();
     }
   }, [auth, desconectarSocket]);

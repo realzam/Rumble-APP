@@ -17,7 +17,6 @@ function Hangman() {
 
   useEffect(() => {
     socket?.on('game_over', (w: string) => {
-      console.log('game_over');
       // eslint-disable-next-line operator-linebreak
       const text =
         playerWord === nick ? 'Suerte para la proxima' : `La palabra era ${w}`;
@@ -27,17 +26,24 @@ function Hangman() {
         text,
       });
     });
+
+    return () => {
+      socket?.removeAllListeners('game_over');
+    };
   }, [socket, nick, playerWord]);
 
   useEffect(() => {
     socket?.on('winning_game', () => {
-      console.log('winning_game');
       Swal.fire({
         icon: 'success',
         title: 'Que Pro',
         text: 'Gananaste',
       });
     });
+
+    return () => {
+      socket?.removeAllListeners('winning_game');
+    };
   }, [socket]);
 
   return (

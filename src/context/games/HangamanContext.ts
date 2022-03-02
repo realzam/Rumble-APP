@@ -15,12 +15,12 @@ export interface HangmanData {
   status: StatusHangman;
   playerWord: string;
   playerLetter: string;
+  isFinish: boolean;
 }
 
 export interface HangmanValues {
   room: HangmanRoom;
   gameData: HangmanData;
-  isOver: boolean;
   segment: number;
   isLoading: boolean;
 }
